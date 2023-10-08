@@ -5,9 +5,42 @@
 </head>
 <body>
     {% extends "base.html" %}
-    {% block title %}Funcionário{% endblock %}
+    {% block title %}Funcionários{% endblock %}
     {% block content %}
-    <h1>Rota da página de Funcionários da nossa WEB APP</h1>
+        
+    <div class="container">     
+        <h3 class="mt-2">Funcionários</h3>
+        <div class="py-2">
+            <form action="{{ url_for('funcionario.formFuncionario') }}" method="GET"> 
+            <button class="btn btn-primary" type="submit" name="formNovo">Cadastrar Funcionário</button>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Matricula</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Grupo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td colspan="1">João Silva</td>
+                <td>7485</td>
+                <td>012.854.729-37</td>
+                <td>49 99824159</td>
+                <td>Adm</td>
+                <td><i class="fa-solid fa-pen-to-square"></i></i></td>
+              </tr>
+            </tbody>
+          </table>
+        
+    </div>
+
     {% endblock %}
 </body>
 </html>

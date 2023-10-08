@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% block title %}Produtos{% endblock %}
+
+    {% block content %}
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">             
+        <h2 id="titulo">Cadastrar Produto</h2>
+        
+        <form name="formAdicionar" id="formAdicionar" action="" method="POST">
+            
+            <div class="mb-3">
+                <label for="id" class="form-label">Código</label>
+                <input type="text" class="form-control" name="id" id="id" value="" placeholder="" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="" placeholder="Digite o nome do funcionário"  minlength="6"  maxlength="100" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input type="text" class="form-control" id="descricao" name="descricao" value="" placeholder="Digite a descrição" maxlength="100" required>
+            </div>  
+
+            <div class="mb-3">
+              <label for="valorUnitario">Valor unitário</label>
+              <div class="input-group mb-2">
+              <div class="input-group-prepend input-group-text">R$</div>
+              <input type="number" class="form-control col-3" id="valorUnitario" name="valorUnitario" min="0" step="1.00" placeholder="0,00" required>
+              </div>
+            </div> 
+
+            <div class="mb-3">
+              <label for="imagem" class="form-label">Imagem do produto</label>
+              <input class="form-control" type="file" name="imagem" id="imagem" required>
+            </div>
+
+            <button type="submit" name="salvarProdutoDB" id="salvarProdutoDB" class="btn btn-primary">Cadastrar</button>
+
+        </form>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

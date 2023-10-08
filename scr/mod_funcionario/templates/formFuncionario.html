@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% block title %}Funcionário{% endblock %}
+
+    {% block content %}
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">             
+        <h2 id="titulo">Cadastrar Funcionário</h2>
+        
+        <form name="formAdicionar" id="formAdicionar" action="" method="POST">
+            
+            <div class="mb-3">
+                <label for="id" class="form-label">Código</label>
+                <input type="text" class="form-control" name="id" id="id" value="" placeholder="" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="" placeholder="Digite o nome do funcionário"  minlength="6"  maxlength="100" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="matricula" class="form-label">Matrícula</label>
+                <input type="text" class="form-control" id="matricula" name="matricula" value="" placeholder="Digite a matrícula" maxlength="15" required>
+            </div>  
+
+            <div class="mb-3">
+                <label for="cpf" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" value="" placeholder="Digite o CPF" maxlength="15" required>
+            </div>    
+
+            <div class="mb-3">
+                <label for="telefone" class="form-label">Telefone </label>
+                <input type="telefone" class="form-control" id="telefone" name="telefone" value="" placeholder="Digite o telefone" maxlength="15" required>
+            </div>    
+
+            <div class="mb-3">
+                <label for="grupo" class="form-label">Grupo</label>
+                <select class="form-select" name="grupo" id="grupo" aria-label="Default select example">
+                    <option selected>Selecione o grupo</option>
+                    <option value="0">Atendente</option>
+                    <option value="1">Caixa</option>
+                    <option value="2">Adm</option>
+                  </select>
+            </div>
+
+            <div class="mb-3" class="form-label">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" name="senha" id="senha" value="" placeholder="Digite a senha" required>
+            </div>
+            <div class="mb-3" class="form-label">
+                <label for="resenha" class="form-label">Confirmar senhar</label>
+                <input type="password" class="form-control" name="resenha" id="resenha" value="" placeholder="Digite a senha novamente" required>
+            </div>
+
+            <button type="submit" name="salvaUsuarioDB" id="salvaUsuarioDB" class="btn btn-primary">Cadastrar</button>
+
+        </form>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
