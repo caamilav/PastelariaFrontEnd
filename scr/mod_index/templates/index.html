@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        .texto-marrom {
+            color: rgb(121, 65, 12);
+        }
+        #titulo{
+            font-family: 'DM Serif Display', serif;
+            font-size: 50pt;
+        }
+    </style>
 </head>
+
 <body>
     {% extends "base.html" %}
     {% block title %}Início{% endblock %}
     {% block content %}
-    <h1>teste inicio</h1>
+    <div class="container text-center p-5">
+        <h4>Bem-vindo à </h4>
+        <h1 class="texto-marrom" id="titulo">Pastelaria Sabor & Arte</h1>
+        <div>
+            <img src="../../static/pastel.png" alt="" srcset="">
+        </div>
+        <p class="texto-marrom">Sinta o aroma irresistível e o sabor autêntico dos nossos deliciosos pastéis! <br>
+            Na Pastelaria Sabor & Arte, estamos comprometidos em criar momentos inesquecíveis de prazer gastronômico.
+        </p>
+
+    </div>
+
     {% endblock %}
 </body>
+
 </html>
