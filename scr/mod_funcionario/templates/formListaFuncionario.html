@@ -24,17 +24,25 @@
                 <th scope="col">CPF</th>
                 <th scope="col">Telefone</th>
                 <th scope="col">Grupo</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
+              {% if result %}
+              {% for row in result %}
               <tr>
-                <th scope="row">1</th>
-                <td colspan="1">João Silva</td>
-                <td>7485</td>
-                <td>012.854.729-37</td>
-                <td>49 99824159</td>
-                <td>Adm</td>
+                <th scope="row">{{row['id_funcionario']}}</th>
+                <td colspan="1">{{row['nome']}}</td>
+                <td>{{row['matricula']}}</td>
+                <td>{{row['cpf']}}</td>
+                <td>{{row['telefone']}}</td>
+                <td>{{row['grupo']}}</td>
+                <td><i class="fas fa-edit"></i></td>
+                <td><i class="fas fa-trash"></i></td>
               </tr>
+              {%endfor%}
+              {%endif%}
             </tbody>
           </table>
         
