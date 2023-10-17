@@ -1,36 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
-    {% extends "base.html" %}
-    {% block title %}Funcionários{% endblock %}
-    {% block content %}
-        
-    <div class="container">     
-        <h3 class="mt-2">Produtos</h3>
-        <div class="py-2">
-            <form action="{{ url_for('produto.formProduto') }}" method="GET"> 
-            <button class="btn btn-primary" type="submit" name="formNovo">Cadastrar Produto</button>
-            </form>
-        </div>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Valor unitário</th>
-                <th scope="col">Imagem</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        
-    </div>
 
-    {% endblock %}
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  {% extends "base.html" %}
+  {% block title %}Funcionários{% endblock %}
+  {% block content %}
+
+  <div class="container">
+    <h3 class="mt-2">Produtos</h3>
+    <div class="py-2">
+      <form action="{{ url_for('produto.formProduto') }}" method="GET">
+        <button class="btn btn-primary" type="submit" name="formNovo">Cadastrar Produto</button>
+      </form>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Valor unitário</th>
+          <th scope="col">Imagem</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {%if result%}
+        {%for row in result%}
+        <tr>
+          <th scope="row">{{row['id_produto']}}</th>
+          <td colspan="1">{{row['nome']}}</td>
+          <td>{{row['descricao']}}</td>
+          <td>{{row['valorUnitario']}}</td>
+          <td>{{row['imagem']}}</td>
+          <td><i class="fas fa-edit"></i></td>
+          <td><i class="fas fa-trash"></i></td>
+        </tr>
+        {%endfor%}
+        {%endif%}
+      </tbody>
+    </table>
+
+  </div>
+
+  {% endblock %}
 </body>
+
 </html>
