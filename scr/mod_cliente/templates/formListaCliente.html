@@ -8,7 +8,7 @@
     {% block title %}Clientes{% endblock %}
     {% block content %}
         
-    <div class="container">     
+    <div class="container">    
         <h3 class="mt-2">Clientes</h3>
         <div class="py-2">
             <form action="{{ url_for('cliente.formCliente') }}" method="GET"> 
@@ -16,21 +16,29 @@
             </form>
         </div>
         <table class="table">
+          {%if result%}
+          {%for row in result%}
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">CPF</th>
                 <th scope="col">Telefone</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
-                <td colspan="1">Alan Zoka</td>
-                <td>012.854.729-37</td>
-                <td>49 99824159</td>
+                <th scope="row">{{row['id_cliente']}}</th>
+                <td colspan="1">{{row['nome']}}</td>
+                <td>{{row['cpf']}}</td>
+                <td>{{row['telefone']}}</td>
+                <td><i class="fas fa-edit"></i></td>
+                <td><i class="fas fa-trash"></i></td>
               </tr>
+            {%endfor%}
+            {%endif%}
             </tbody>
           </table>
         
