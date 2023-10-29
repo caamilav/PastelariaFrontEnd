@@ -48,7 +48,19 @@
     {% endblock %}
 
     <body>
-      
+      {% if request.args.get('msg'): %}
+<h3>{{ request.args.get('msg') }}</h3>
+<br>
+{% elif msg: %}
+<h3>{{ msg }}</h3>
+<br>
+{% elif request.args.get('msgErro'): %}
+<h3>{{ request.args.get('msgErro') }}</h3>
+<br>
+{% elif msgErro: %}
+<h3>{{ msgErro }}</h3>
+<br>
+{% endif %}
   
     <div class="container conteudo" style="height: 82vh">
     {% block content %}{% endblock %}

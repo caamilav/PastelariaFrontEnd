@@ -17,33 +17,40 @@
         <button class="btn btn-primary" type="submit" name="formNovo">Cadastrar Cliente</button>
       </form>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nome</th>
-          <th scope="col">CPF</th>
-          <th scope="col">Telefone</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {%if result%}
-        {%for row in result%}
-        <tr>
-          <th scope="row">{{row['id_cliente']}}</th>
-          <td colspan="1">{{row['nome']}}</td>
-          <td>{{row['cpf']}}</td>
-          <td>{{row['telefone']}}</td>
-          <td><i class="fas fa-edit"></i></td>
-          <td><i class="fas fa-trash"></i></td>
-        </tr>
-        {%endfor%}
-        {%endif%}
-      </tbody>
-    </table>
-
+    {% if result %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Fiado</th>
+            <th scope="col">Data Fiado</th>
+            <th scope="col">Senha</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for row in result%}
+          <tr>
+            <th scope="row">{{row['id_cliente']}}</th>
+            <td colspan="1">{{row['nome']}}</td>
+            <td>{{row['cpf']}}</td>
+            <td>{{row['telefone']}}</td>
+            <td>{{row['compra_fiado']}}</td>
+            <td>{{row['dia_fiado']}}</td>
+            <td>{{row['senha'][:10]}}</td>
+            <td><i class="fas fa-edit"></i></td>
+            <td><i class="fas fa-trash"></i></td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Não há registros disponíveis.</p>
+    {% endif %}
   </div>
 
   {% endblock %}

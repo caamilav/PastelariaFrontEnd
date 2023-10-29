@@ -14,11 +14,11 @@
     <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">             
         <h2 id="titulo">Cadastrar Funcionário</h2>
         
-        <form name="formAdicionar" id="formAdicionar" action="" method="POST">
+        <form name="formAdicionar" id="formAdicionar" action="{{url_for('funcionario.insert')}}" method="POST">
             
             <div class="mb-3">
                 <label for="id" class="form-label">Código</label>
-                <input type="text" class="form-control" name="id" id="id" value="" placeholder="" disabled>
+                <input type="text" class="form-control" name="id" id="id" value="0" placeholder="" readonly>
             </div>
 
             <div class="mb-3">

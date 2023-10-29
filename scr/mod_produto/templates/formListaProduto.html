@@ -17,6 +17,7 @@
         <button class="btn btn-primary" type="submit" name="formNovo">Cadastrar Produto</button>
       </form>
     </div>
+    {%if result %}
     <table class="table">
       <thead>
         <tr>
@@ -30,21 +31,23 @@
         </tr>
       </thead>
       <tbody>
-        {%if result%}
         {%for row in result%}
         <tr>
           <th scope="row">{{row['id_produto']}}</th>
           <td colspan="1">{{row['nome']}}</td>
           <td>{{row['descricao']}}</td>
-          <td>{{row['valorUnitario']}}</td>
-          <td>{{row['imagem']}}</td>
+          <td>R$ {{row['valor_unitario']}}</td>
+          <td>{{row['foto']}}</td>
           <td><i class="fas fa-edit"></i></td>
           <td><i class="fas fa-trash"></i></td>
         </tr>
         {%endfor%}
-        {%endif%}
       </tbody>
     </table>
+    {% else %}
+      <p>Não há registros disponíveis.</p>
+    {% endif %}
+
 
   </div>
 

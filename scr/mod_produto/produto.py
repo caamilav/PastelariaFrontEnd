@@ -12,7 +12,7 @@ def formListaProduto():
         if(response.status_code != 200):
             raise Exception(result[0])
         
-        return render_template('formListaProduto.html', result=result[0])
+        return render_template('formListaProduto.html', msg=result[0])
     except Exception as e:
         return render_template('formListaProduto.html', msgCode=e.args[0])
  
