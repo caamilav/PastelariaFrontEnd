@@ -1,37 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 <body>
     {% extends "base.html" %}
     {% block title %}Cliente{% endblock %}
 
     {% block content %}
+
+    {% set id = result.id_cliente if result else '0' %}
+    {% set nome = result.nome if result %}
+    {% set cpf = result.cpf if result else '' %}
+    {% set telefone = result.telefone if result else '' %}
+    {% set checked = checked if result.compraFiado else '' %}
+    {% set diaFiado = result.diaFiado if result %}
+    {% set senha = result.senha if result else '' %}
+
+
     <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">             
-        <h2 id="titulo">Cadastrar Cliente</h2>
+        <h2 class="titulo">{{ 'Editar cliente' if result else 'Cadastrar cliente' }}</h1>
         
-        <form name="formAdicionar" id="formAdicionar" action="{{url_for('cliente.insert')}}" method="POST">
+        <form 
+            name="{{ 'formEditar' if result else 'formAdicionar' }}"
+            id="{{ 'formEditar' if result else 'formAdicionar' }}"
+            action="{{ url_for('cliente.edit') if result else url_for('cliente.insert') }}" 
+            method="POST">
             
             <div class="mb-3">
                 <label for="id" class="form-label">Código</label>
-                <input type="text" class="form-control" name="id" id="id" value="0" placeholder="" readonly>
+                <input type="text" class="form-control" name="id" id="id" value="{{id}}" placeholder="" readonly>
             </div>
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" value="" placeholder="Digite o nome do cliente"  minlength="6"  maxlength="100" required>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}" placeholder="Digite o nome do cliente"  minlength="6"  maxlength="100" required>
             </div>
 
             <div class="mb-3">
                 <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" value="" placeholder="Digite o CPF" maxlength="15" required>
+                <input type="text" class="form-control" id="cpf" name="cpf" value="{{cpf}}" placeholder="Digite o CPF" maxlength="15" required>
             </div>    
 
             <div class="mb-3">
                 <label for="telefone" class="form-label">Telefone </label>
-                <input type="telefone" class="form-control" id="telefone" name="telefone" value="" placeholder="Digite o telefone" maxlength="15" required>
+                <input type="telefone" class="form-control" id="telefone" name="telefone" value="{{telefone}}" placeholder="Digite o telefone" maxlength="15" required>
             </div>    
 
             <div class="form-check mb-3">
@@ -44,18 +52,18 @@
             
             <div class="mb-3">
                 <label for="diaFiado" class="form-label">Data Fiado </label>
-                <input type="date" class="form-control" id="diaFiado" name="diaFiado" value="">
+                <input type="date" class="form-control" id="diaFiado" name="diaFiado" value="{{diaFiado}}">
             </div>    
 
 
 
             <div class="mb-3" class="form-label">
                 <label for="senha" class="form-label">Senha</label>
-                <input type="password" class="form-control" name="senha" id="senha" value="" placeholder="Digite a senha" required>
+                <input type="password" class="form-control" name="senha" id="senha" value="{{senha}}" placeholder="Digite a senha" required>
             </div>
             <div class="mb-3" class="form-label">
                 <label for="resenha" class="form-label">Confirmar senhar</label>
-                <input type="password" class="form-control" name="resenha" id="resenha" value="" placeholder="Digite a senha novamente" required>
+                <input type="password" class="form-control" name="resenha" id="resenha" value="{{senha}}" placeholder="Digite a senha novamente" required>
             </div>
 
             <button type="submit" name="btnCadastrar" id="btnCadastrar" class="btn btn-primary">Cadastrar</button>
@@ -64,5 +72,3 @@
     </div>
     {% endblock %}
 </body>
-
-</html>
