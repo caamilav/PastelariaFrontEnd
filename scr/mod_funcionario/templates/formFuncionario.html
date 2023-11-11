@@ -15,65 +15,63 @@
     <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">
         <h2 class="titulo">{{ 'Editar funcionário' if result else 'Cadastrar funcionário' }}</h1>
 
-        <form 
-            name="{{ 'formEditar' if result else 'formAdicionar' }}"
-            id="{{ 'formEditar' if result else 'formAdicionar' }}"
-            method="POST"
-            enctype="multipart/form-data">
+            <form name="{{ 'formEditar' if result else 'formAdicionar' }}"
+                id="{{ 'formEditar' if result else 'formAdicionar' }}" method="POST" enctype="multipart/form-data">
 
-            <div class="mb-3">
-                <label for="id" class="form-label">Código</label>
-                <input type="text" class="form-control" name="id" id="id" value="{{id}}" placeholder="" readonly>
-            </div>
+                <div class="mb-3">
+                    <label for="id" class="form-label">Código</label>
+                    <input type="text" class="form-control" name="id" id="id" value="{{id}}" placeholder="" readonly>
+                </div>
 
-            <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}"
-                    placeholder="Digite o nome do funcionário" minlength="6" maxlength="100" required>
-            </div>
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}"
+                        placeholder="Digite o nome do funcionário" minlength="6" maxlength="100" required>
+                </div>
 
-            <div class="mb-3">
-                <label for="matricula" class="form-label">Matrícula</label>
-                <input type="text" class="form-control" id="matricula" name="matricula" value="{{matricula}}"
-                    placeholder="Digite a matrícula" maxlength="15" required>
-            </div>
+                <div class="mb-3">
+                    <label for="matricula" class="form-label">Matrícula</label>
+                    <input type="text" class="form-control" id="matricula" name="matricula" value="{{matricula}}"
+                        placeholder="Digite a matrícula" maxlength="15" required>
+                </div>
 
-            <div class="mb-3">
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" value="{{cpf}}" placeholder="Digite o CPF"
-                    maxlength="14" required>
-            </div>
+                <div class="mb-3">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input type="text" oninput="mascaraCPF(this)" class="form-control" id="cpf" name="cpf"
+                        value="{{cpf}}" placeholder="Digite o CPF" maxlength="14" required>
+                </div>
 
-            <div class="mb-3">
-                <label for="telefone" class="form-label">Telefone </label>
-                <input type="text" class="form-control" id="telefone" name="telefone" value="{{telefone}}"
-                    placeholder="Digite o telefone" maxlength="15" required>
-            </div>
+                <div class="mb-3">
+                    <label for="telefone" class="form-label">Telefone </label>
+                    <input type="text" oninput="mascaraTelefone(this)" class="form-control" id="telefone" name="telefone" value="{{telefone}}"
+                        placeholder="Digite o telefone" maxlength="15" required>
+                </div>
 
-            <div class="mb-3">
-                <label for="grupo" class="form-label">Grupo</label>
-                <select class="form-select" name="grupo" id="grupo" aria-label="Default select example">
-                    <option selected>Selecione o grupo</option>
-                    {% for option, value in {'Atendente': 0, 'Caixa': 1, 'Adm': 2}.items() %}
-                    <option value="{{ value }}" {{ 'selected' if grupo == value else '' }}>{{ option }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label for="grupo" class="form-label">Grupo</label>
+                    <select class="form-select" name="grupo" id="grupo" aria-label="Default select example">
+                        <option selected>Selecione o grupo</option>
+                        {% for option, value in {'Atendente': 0, 'Caixa': 1, 'Adm': 2}.items() %}
+                        <option value="{{ value }}" {{ 'selected' if grupo==value else '' }}>{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="mb-3" class="form-label">
-                <label for="senha" class="form-label">Senha</label>
-                <input type="password" class="form-control" name="senha" id="senha" value="{{senha}}"
-                    placeholder="Digite a senha" required>
-            </div>
-            <div class="mb-3" class="form-label">
-                <label for="resenha" class="form-label">Confirmar senhar</label>
-                <input type="password" class="form-control" name="resenha" id="resenha" value="{{senha}}"
-                    placeholder="Digite a senha novamente" required>
-            </div>
+                <div class="mb-3" class="form-label">
+                    <label for="senha" class="form-label">Senha</label>
+                    <input type="password" class="form-control" name="senha" id="senha" value="{{senha}}"
+                        placeholder="Digite a senha" required>
+                </div>
+                <div class="mb-3" class="form-label">
+                    <label for="resenha" class="form-label">Confirmar senhar</label>
+                    <input type="password" class="form-control" name="resenha" id="resenha" value="{{senha}}"
+                        placeholder="Digite a senha novamente" required>
+                </div>
 
-            <button type="submit" name="salvaUsuarioDB" id="salvaUsuarioDB" class="btn btn-primary">Cadastrar</button>
+                <button type="submit" name="salvaUsuarioDB" id="salvaUsuarioDB"
+                    class="btn btn-primary">Cadastrar</button>
 
-        </form>
+            </form>
     </div>
     {% endblock %}
 
@@ -100,9 +98,9 @@
                 success: function (data) {
                     if (!data.erro) {
                         Swal.fire({
-                            text:'Funcionário cadastrado com sucesso!', 
-                            icon: 'success', 
-                            showCancelButton: false, 
+                            text: 'Funcionário cadastrado com sucesso!',
+                            icon: 'success',
+                            showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33', confirmButtonText: 'OK'
                         }).then((result) => {
@@ -139,9 +137,9 @@
                 success: function (data) {
                     if (!data.erro) {
                         Swal.fire({
-                            text: 'Funcionário editado com sucesso!', 
-                            icon: 'success', 
-                            showCancelButton: false, 
+                            text: 'Funcionário editado com sucesso!',
+                            icon: 'success',
+                            showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33', confirmButtonText: 'OK'
                         }).then((result) => {
@@ -161,7 +159,34 @@
             })
         })
     </script>
+
+    <script>
+        function mascaraCPF(i) {
+            var v = i.value;
+
+            if (isNaN(v[v.length - 1])) { // impede entrar outro caractere que não seja número
+                i.value = v.substring(0, v.length - 1);
+                return;
+            }
+
+            i.setAttribute("maxlength", "14");
+            if (v.length == 3 || v.length == 7) i.value += ".";
+            if (v.length == 11) i.value += "-";
+        }
+
+        function mascaraTel(i){
+            var v = i.value;
+
+        const parte1 = textoAtual.slice(0,5);
+        const parte2 = textoAtual.slice(5,9);
+        i.value = `${parte1}-${parte2}` 
+
+        }
+    </script>
+
     {% endblock %}
+
+
 
 
 </body>

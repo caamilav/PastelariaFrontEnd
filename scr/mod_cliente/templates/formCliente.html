@@ -11,62 +11,64 @@
     {% set senha = result.senha if result else '' %}
 
 
-    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">             
+    <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">
         <h2 class="titulo">{{ 'Editar cliente' if result else 'Cadastrar cliente' }}</h1>
-        
-        <form 
-            name="{{ 'formEditar' if result else 'formAdicionar' }}"
-            id="{{ 'formEditar' if result else 'formAdicionar' }}"
-            method="POST"
-            enctype="multipart/form-data">
-            
-            <div class="mb-3">
-                <label for="id" class="form-label">Código</label>
-                <input type="text" class="form-control" name="id" id="id" value="{{id}}" placeholder="" readonly>
-            </div>
 
-            <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}" placeholder="Digite o nome do cliente"  minlength="6"  maxlength="100" required>
-            </div>
+            <form name="{{ 'formEditar' if result else 'formAdicionar' }}"
+                id="{{ 'formEditar' if result else 'formAdicionar' }}" method="POST" enctype="multipart/form-data">
 
-            <div class="mb-3">
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" value="{{cpf}}" placeholder="Digite o CPF" maxlength="15" required>
-            </div>    
+                <div class="mb-3">
+                    <label for="id" class="form-label">Código</label>
+                    <input type="text" class="form-control" name="id" id="id" value="{{id}}" placeholder="" readonly>
+                </div>
 
-            <div class="mb-3">
-                <label for="telefone" class="form-label">Telefone </label>
-                <input type="telefone" class="form-control" id="telefone" name="telefone" value="{{telefone}}" placeholder="Digite o telefone" maxlength="15" required>
-            </div>    
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}"
+                        placeholder="Digite o nome do cliente" minlength="6" maxlength="100" required>
+                </div>
 
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" value="0" id="compraFiado" name="compraFiado">
-                <label class="form-check-label" for="compraFiado">
-                  Compra Fiado
-                </label>
-            </div>
+                <div class="mb-3">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input type="text" oninput="mascaraCPF(this)" class="form-control" id="cpf" name="cpf" value="{{cpf}}"
+                        placeholder="Digite o CPF" maxlength="15" required>
+                </div>
 
-            
-            <div class="mb-3">
-                <label for="diaFiado" class="form-label">Data Fiado </label>
-                <input type="date" class="form-control" id="diaFiado" name="diaFiado" value="{{diaFiado}}">
-            </div>    
+                <div class="mb-3">
+                    <label for="telefone" class="form-label">Telefone </label>
+                    <input type="telefone" class="form-control" id="telefone" name="telefone" value="{{telefone}}"
+                        placeholder="Digite o telefone" maxlength="15" required>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" value="0" id="compraFiado" name="compraFiado">
+                    <label class="form-check-label" for="compraFiado">
+                        Compra Fiado
+                    </label>
+                </div>
 
 
+                <div class="mb-3">
+                    <label for="diaFiado" class="form-label">Data Fiado </label>
+                    <input type="date" class="form-control" id="diaFiado" name="diaFiado" value="{{diaFiado}}">
+                </div>
 
-            <div class="mb-3" class="form-label">
-                <label for="senha" class="form-label">Senha</label>
-                <input type="password" class="form-control" name="senha" id="senha" value="{{senha}}" placeholder="Digite a senha" required>
-            </div>
-            <div class="mb-3" class="form-label">
-                <label for="resenha" class="form-label">Confirmar senhar</label>
-                <input type="password" class="form-control" name="resenha" id="resenha" value="{{senha}}" placeholder="Digite a senha novamente" required>
-            </div>
 
-            <button type="submit" name="btnCadastrar" id="btnCadastrar" class="btn btn-primary">Cadastrar</button>
 
-        </form>
+                <div class="mb-3" class="form-label">
+                    <label for="senha" class="form-label">Senha</label>
+                    <input type="password" class="form-control" name="senha" id="senha" value="{{senha}}"
+                        placeholder="Digite a senha" required>
+                </div>
+                <div class="mb-3" class="form-label">
+                    <label for="resenha" class="form-label">Confirmar senhar</label>
+                    <input type="password" class="form-control" name="resenha" id="resenha" value="{{senha}}"
+                        placeholder="Digite a senha novamente" required>
+                </div>
+
+                <button type="submit" name="btnCadastrar" id="btnCadastrar" class="btn btn-primary">Cadastrar</button>
+
+            </form>
     </div>
     {% endblock %}
 
@@ -94,9 +96,9 @@
                 success: function (data) {
                     if (!data.erro) {
                         Swal.fire({
-                            text:'Cliente cadastrado com sucesso!', 
-                            icon: 'success', 
-                            showCancelButton: false, 
+                            text: 'Cliente cadastrado com sucesso!',
+                            icon: 'success',
+                            showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33', confirmButtonText: 'OK'
                         }).then((result) => {
@@ -133,9 +135,9 @@
                 success: function (data) {
                     if (!data.erro) {
                         Swal.fire({
-                            text: 'Cliente editado com sucesso!', 
-                            icon: 'success', 
-                            showCancelButton: false, 
+                            text: 'Cliente editado com sucesso!',
+                            icon: 'success',
+                            showCancelButton: false,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33', confirmButtonText: 'OK'
                         }).then((result) => {
@@ -155,6 +157,25 @@
             })
         })
     </script>
+
+
+    <script>
+        function mascaraCPF(i) {
+
+            var v = i.value;
+
+            if (isNaN(v[v.length - 1])) { // impede entrar outro caractere que não seja número
+                i.value = v.substring(0, v.length - 1);
+                return;
+            }
+
+            i.setAttribute("maxlength", "14");
+            if (v.length == 3 || v.length == 7) i.value += ".";
+            if (v.length == 11) i.value += "-";
+
+        }
+    </script>
     {% endblock %}
+
 
 </body>
