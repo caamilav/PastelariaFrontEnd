@@ -46,10 +46,10 @@ def insert():
         if (response.status_code != 200 or result[1] != 200):
             raise Exception(result[0])
         
-        return redirect(url_for('funcionario.formListaFuncionario', msg=result[0]))
+        return jsonify(erro=False, msg=result[0])
     except Exception as e:
-       return render_template('formListaFuncionario.html', msgErro=e.args[0])
-   
+        return jsonify(erro=True, msgErro=e.args[0])
+       
 @bp_funcionario.route("/form-edit-funcionario", methods=['POST'])
 def formEditFuncionario():
     try:
@@ -82,9 +82,9 @@ def edit():
         result = response.json()      
         if (response.status_code != 200 or result[1] != 200):
             raise Exception(result[0])
-        return redirect(url_for('funcionario.formListaFuncionario', msg=result[0]))
+        return jsonify(erro=False, msg=result[0])
     except Exception as e:
-        return render_template('formListaFuncionario.html', msgErro=e.args[0])
+        return jsonify(erro=True, msgErro=e.args[0])
     
     
 @bp_funcionario.route('/delete', methods=['POST'])
