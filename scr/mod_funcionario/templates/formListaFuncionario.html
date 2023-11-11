@@ -77,13 +77,13 @@
         cancelButtonText: 'Cancelar', confirmButtonText: 'Sim'
       }).then((result) => {
         if (result.isConfirmed) {
-          deletarFuncionario($(e.target)[0][0].value); // Retorna o valor que está no id
+          deletar($(e.target)[0][0].value); // Retorna o valor que está no id
         }
       })
     })
     // sempre pega a url da barra de endereço
     $SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
-    function deletarFuncionario(idFuncionario) {
+    function deletar(idFuncionario) {
       $.post($SCRIPT_ROOT + "{{ url_for('funcionario.delete') }}", {
         id_funcionario: idFuncionario
       }, function (data) {

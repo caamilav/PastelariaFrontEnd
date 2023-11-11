@@ -1,7 +1,7 @@
 import base64
 import requests
 from settings import HEADERS_API, ENDPOINT_PRODUTO
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 bp_produto = Blueprint('produto', __name__, url_prefix="/produto", template_folder='templates')
 
 @bp_produto.route('/', methods=['GET', 'POST'])
@@ -84,3 +84,18 @@ def edit():
         return redirect(url_for('produto.formListaProduto', msg=result[0]))
     except Exception as e:
         return render_template('formListaProduto.html', msgErro=e.args[0])
+    
+    
+@bp_produto.route('/delete', methods=['POST'])
+def delete():
+    try:
+        # dados enviados via FORM
+        id_produto = request.form['id_produto']
+        # executa o verbo DELETE da API e armazena seu retorno
+        response = requests.delete(ENDPOINT_PRODUTO + id_produto, headers=HEADERS_API)
+        result = response.json()
+        if (response.status_code != 200 or result[1] != 200):
+          raise Exception(result[0])
+        return jsonify(erro=False, msg=result[0])
+    except Exception as e:
+        return jsonify(erro=True, msgErro=e.args[0])

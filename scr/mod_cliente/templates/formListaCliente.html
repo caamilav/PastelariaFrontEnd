@@ -42,7 +42,12 @@
             <button type="submit" name="formEditEditCliente"> <i class="fas fa-edit"></i> </button>
           </form>
           </td>
-          <td><i class="fas fa-trash"></i></td>
+          <td>
+            <form method='POST' name='jsDelete' id='jsDelete'>
+              <input type='hidden' name='id_cliente' value="{{ row['id_cliente'] }}">
+              <button type='submit' name='formDeleteCliente' class='btn'><i class='fas fa-trash'></i></button>
+            </form>
+          </td>
         </tr>
         {%endfor%}
       </tbody>
@@ -52,5 +57,53 @@
     {% endif %}
   </div>
 
+  {% endblock %}
+
+
+  {% block js %}
+  <script src="{{ url_for('static', filename='bootstrap-5.3.2-dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='fontawesome-free-6.4.2-web/js/all.js') }}"></script>
+  <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+  <script>
+    $("form[name='jsDelete']").submit(function (e) {
+      // parar o envio para poder fazer manualmente
+      e.preventDefault();
+      Swal.fire({
+        title: '', text: "Deseja realmente excluir: " + $(e.target)[0][0].value,
+        icon: 'warning', showCancelButton: true,
+        confirmButtonColor: '#3085d6', cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar', confirmButtonText: 'Sim'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deletar($(e.target)[0][0].value); // Retorna o valor que está no id
+        }
+      })
+    })
+    // sempre pega a url da barra de endereço
+    $SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
+    function deletar(idCliente) {
+      $.post($SCRIPT_ROOT + "{{ url_for('cliente.delete') }}", {
+        id_cliente: idCliente
+      }, function (data) {
+        if (!data.erro) {
+          Swal.fire({
+            title: 'Registro excluído com sucesso!',
+            icon: 'success', showCancelButton: false,
+            confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.replace($SCRIPT_ROOT + "{{ url_for('cliente.formListaCliente') }}");
+            }
+          })
+        }
+        else {
+          Swal.fire(data.msgErro.msg, data.msgErro.erro, "error");
+        }
+      }
+      )
+    }
+  </script>
   {% endblock %}
 </body>
