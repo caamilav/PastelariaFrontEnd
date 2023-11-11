@@ -40,7 +40,12 @@
                   <td>{{row['telefone']}}</td>
                   <td>{{row['grupo']}}</td>
                   <td>{{row['senha'][:10]}}</td>
-                  <td><i class="fas fa-edit"></i></td>
+                  <td>
+                    <form action="{{ url_for('funcionario.formEditFuncionario') }}" method="POST" name="formEdit{{ row['id_funcionario'] }}">
+                    <input type="hidden" name="id" value="{{ row['id_funcionario'] }}">
+                    <button type="submit" name="formEditFuncionario"> <i class="fas fa-edit"></i> </button>               
+                    </form>
+                  </td>
                   <td><i class="fas fa-trash"></i></td>
                 </tr>
                 {%endfor%}

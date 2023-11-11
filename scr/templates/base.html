@@ -1,93 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %} - Pastelaria</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.2-dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-6.4.2-web/css/all.min.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <style>
-      body{
-        background-color: rgb(250, 242, 227);
-        font-family: 'Varela Round', sans-serif;
-      }
-      .btn-primary{
-        background-color: rgb(121, 65,12);
-        border: none;
-      }
-      .btn-primary:hover{
-        background-color: rgb(131, 95, 61);
-      }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %} - Pastelaria</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.2-dist/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free-6.4.2-web/css/all.min.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='sweetalert2/sweetalert2.min.css') }}">
+
+  <style>
+    body {
+      background-color: rgb(250, 242, 227);
+      font-family: 'Varela Round', sans-serif;
+    }
+
+    .btn-primary {
+      background-color: rgb(121, 65, 12);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: rgb(131, 95, 61);
+    }
+  </style>
 </head>
+
 <body>
-    {% block menu %}
-    <nav class="navbar navbar-expand-lg  p-2">
-        <a class="navbar-brand" href="#">Sabor & Arte</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('index.formIndex') }}">Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('funcionario.formListaFuncionario') }}">Funcionários</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('cliente.formListaCliente') }}">Clientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('produto.formListaProduto') }}">Produtos</a>
-              </li>
-          </ul>
-        </div>
-      </nav>
-    {% endblock %}
-
-    <body>
-      {% if request.args.get('msg'): %}
-<h3>{{ request.args.get('msg') }}</h3>
-<br>
-{% elif msg: %}
-<h3>{{ msg }}</h3>
-<br>
-{% elif request.args.get('msgErro'): %}
-<h3>{{ request.args.get('msgErro') }}</h3>
-<br>
-{% elif msgErro: %}
-<h3>{{ msgErro }}</h3>
-<br>
-{% endif %}
-  
-    <div class="container conteudo" style="height: 82vh">
-    {% block content %}{% endblock %}
-    </div>
-    
-    {% block footer %}
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        </a>
-        <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Camila</span>
-      </div>
-  
-      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+  {% block menu %}
+  <nav class="navbar navbar-expand-lg  p-2">
+    <a class="navbar-brand" href="#">Sabor & Arte</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('index.formIndex') }}">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('funcionario.formListaFuncionario') }}">Funcionários</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('cliente.formListaCliente') }}">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('produto.formListaProduto') }}">Produtos</a>
+        </li>
       </ul>
-    </footer>
-    {% endblock %}
+    </div>
+  </nav>
+  {% endblock %}
 
-  </body>
+
+  <!-- redirect - request.args.get('msg' ou 'msgErro') -->
+  {% if request.args.get('msg'): %}
+  <script>
+    Swal.fire("Sucesso", "{{ request.args.get('msg') }}", "success");
+  </script>
+  {% elif request.args.get('msgErro'): %}
+  <script>
+    Swal.fire("Erro", "{{ request.args.get('msgErro') }}", "error");
+  </script>
+  <!-- render_template - msg ou msgErro -->
+  {% elif msg: %}
+  <script>
+    Swal.fire("ID {{ msg.id }}, {{ msg.msg }} ", "{{ msg }}", "success");
+  </script>
+  {% elif msgErro: %}
+  <script>
+    Swal.fire("{{ msgErro.msg if msgErro.msg else 'Erro' }}", "{{ msgErro }}", "error");
+  </script>
+  {% endif %}
+
+  <div class="container conteudo" style="height: 82vh">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% block footer %}
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+        <svg class="bi" width="30" height="24">
+          <use xlink:href="#bootstrap" />
+        </svg>
+      </a>
+      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 Camila</span>
+    </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
+            <use xlink:href="#twitter" />
+          </svg></a></li>
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
+            <use xlink:href="#instagram" />
+          </svg></a></li>
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
+            <use xlink:href="#facebook" />
+          </svg></a></li>
+    </ul>
+  </footer>
+  {% endblock %}
+
+</body>
 
 {% block js %}
 <script src="{{ url_for('static', filename='bootstrap-5.3.2-dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='fontawesome-free-6.4.2-web/js/all.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.maskedinput.min.js') }}"></script>
+<script src="{{ url_for('static', filename='sweetalert2/sweetalert2.all.min.js') }}"></script>
 {% endblock %}
 </body>
+
 </html>
