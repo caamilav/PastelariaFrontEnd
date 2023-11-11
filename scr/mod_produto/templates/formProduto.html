@@ -11,37 +11,49 @@
     {% block title %}Produtos{% endblock %}
 
     {% block content %}
+
+    {% set id = result.id_produto if result else '0' %}
+    {% set nome = result.nome if result %}
+    {% set descricao = result.descricao if result else '' %}
+    {% set valorUnitario = result.valor_unitario if result else '' %}
+    {% set foto = result.foto if result else '' %}
+
+
     <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">             
         <h2 id="titulo">Cadastrar Produto</h2>
         
-        <form name="formAdicionar" id="formAdicionar" action="{{url_for('produto.insert')}}" method="POST" enctype="multipart/form-data">
+        <form 
+         name="{{ 'formEditar' if result else 'formAdicionar' }}"
+         id="{{ 'formEditar' if result else 'formAdicionar' }}"
+         action="{{ url_for('produto.edit') if result else url_for('produto.insert') }}" 
+         method="POST">
             
             <div class="mb-3">
                 <label for="id" class="form-label">Código</label>
-                <input type="text" class="form-control" name="id" id="id" value="0" placeholder="" readonly>
+                <input type="text" class="form-control" name="id" id="id" value="{{id}}" placeholder="" readonly>
             </div>
 
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" value="" placeholder="Digite o nome do funcionário"  minlength="6"  maxlength="100" required>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}" placeholder="Digite o nome do funcionário"  minlength="6"  maxlength="100" required>
             </div>
 
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
-                <input type="text" class="form-control" id="descricao" name="descricao" value="" placeholder="Digite a descrição" maxlength="100" required>
+                <input type="text" class="form-control" id="descricao" name="descricao" value="{{descricao}}" placeholder="Digite a descrição" maxlength="100" required>
             </div>  
 
             <div class="mb-3">
               <label for="valorUnitario">Valor unitário</label>
               <div class="input-group mb-2">
               <div class="input-group-prepend input-group-text">R$</div>
-              <input type="number" class="form-control col-3" id="valorUnitario" name="valorUnitario" min="0" step="1.00" placeholder="0,00" required>
+              <input type="number" class="form-control col-3"  value="{{valorUnitario}}" id="valorUnitario" name="valorUnitario" min="0" step="1.00" placeholder="0,00" required>
               </div>
             </div> 
 
             <div class="mb-3">
               <label for="imagem" class="form-label">Imagem do produto</label>
-              <input class="form-control" type="file" name="imagem" id="imagem" required>
+              <input class="form-control" type="file" name="imagem" id="imagem" value="{{foto}}" required>
             </div>
 
             <button type="submit" name="salvarProdutoDB" id="salvarProdutoDB" class="btn btn-primary">Cadastrar</button>

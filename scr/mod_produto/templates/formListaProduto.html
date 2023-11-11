@@ -7,7 +7,7 @@
 
 <body>
   {% extends "base.html" %}
-  {% block title %}Funcionários{% endblock %}
+  {% block title %}Produtos{% endblock %}
   {% block content %}
 
   <div class="container">
@@ -38,7 +38,13 @@
           <td>{{row['descricao']}}</td>
           <td>R$ {{row['valor_unitario']}}</td>
           <td><img width="100px" src="{{row['foto']}}"></td>
-          <td><i class="fas fa-edit"></i></td>
+          <td>
+            <form action="{{ url_for('produto.formEditProduto') }}" method="POST"
+              name="formEdit{{ row['id_produto'] }}">
+              <input type="hidden" name="id" value="{{ row['id_produto'] }}">
+              <button type="submit" name="formEditProduto"> <i class="fas fa-edit"></i> </button>
+            </form>      
+          </td>
           <td><i class="fas fa-trash"></i></td>
         </tr>
         {%endfor%}
