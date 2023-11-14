@@ -1,4 +1,5 @@
 import requests
+from mod_login.login import validaSessao
 from shared.funcoes import Funcoes
 from settings import HEADERS_API, ENDPOINT_FUNCIONARIO
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
@@ -6,6 +7,7 @@ bp_funcionario = Blueprint('funcionario', __name__, url_prefix="/funcionario", t
 
 
 @bp_funcionario.route('/', methods=['GET', 'POST'])
+@validaSessao
 def formListaFuncionario():
     try: 
         response = requests.get(ENDPOINT_FUNCIONARIO, headers=HEADERS_API)
@@ -19,11 +21,13 @@ def formListaFuncionario():
         return render_template('formListaFuncionario.html', msgErro=e.args[0])
 
 @bp_funcionario.route('/form-funcionario/', methods=['GET'])
+@validaSessao
 def formFuncionario():
     return render_template('formFuncionario.html')
 
 
 @bp_funcionario.route('/insert', methods=['POST'])
+@validaSessao
 def insert():
     try:
         id_funcionario = request.form['id']
@@ -51,6 +55,7 @@ def insert():
         return jsonify(erro=True, msgErro=e.args[0])
        
 @bp_funcionario.route("/form-edit-funcionario", methods=['POST'])
+@validaSessao
 def formEditFuncionario():
     try:
         id_funcionario = request.form['id']
@@ -64,6 +69,7 @@ def formEditFuncionario():
     
     
 @bp_funcionario.route('/edit', methods=['POST'])
+@validaSessao
 def edit():
     try:
         # dados enviados via FORM
@@ -88,6 +94,7 @@ def edit():
     
     
 @bp_funcionario.route('/delete', methods=['POST'])
+@validaSessao
 def delete():
     try:
         # dados enviados via FORM

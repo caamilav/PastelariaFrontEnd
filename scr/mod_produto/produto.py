@@ -1,10 +1,12 @@
 import base64
 import requests
+from mod_login.login import validaSessao
 from settings import HEADERS_API, ENDPOINT_PRODUTO
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 bp_produto = Blueprint('produto', __name__, url_prefix="/produto", template_folder='templates')
 
 @bp_produto.route('/', methods=['GET', 'POST'])
+@validaSessao
 def formListaProduto():
     try: 
         response = requests.get(ENDPOINT_PRODUTO, headers=HEADERS_API)
@@ -19,10 +21,12 @@ def formListaProduto():
  
 
 @bp_produto.route('/form-produto/', methods=['GET'])
+@validaSessao
 def formProduto():
     return render_template('formProduto.html')
 
 @bp_produto.route('/insert', methods=['POST'])
+@validaSessao
 def insert():
     try:
         id_produto = request.form['id']
@@ -50,6 +54,7 @@ def insert():
    
    
 @bp_produto.route("/form-edit-produto", methods=['POST'])
+@validaSessao
 def formEditProduto():
     try:
         id_produto = request.form['id']
@@ -63,6 +68,7 @@ def formEditProduto():
     
     
 @bp_produto.route('/edit', methods=['POST'])
+@validaSessao
 def edit():
     try:
         
@@ -84,6 +90,7 @@ def edit():
         return jsonify(erro=True, msgErro=e.args[0])    
     
 @bp_produto.route('/delete', methods=['POST'])
+@validaSessao
 def delete():
     try:
         # dados enviados via FORM
