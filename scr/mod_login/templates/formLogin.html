@@ -12,7 +12,7 @@
 
 <div class="container col-lg-4 col-md-6 col-sm-8 col-10 mt-2">
 
-    <form action="{{url_for('login.validaLogin')}}" method="post">
+    <form name="formLogin" id="formLogin" method="post">
         <h3 class="titulo">Login</h3>
         <div class="form-group mb-3">
             <label for="usuario">CPF</label>
@@ -36,4 +36,38 @@
 <script src="{{ url_for('static', filename='fontawesome-free-6.4.2-web/js/all.js') }}"></script>
 <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+
+<script>
+    $SCRIPT_ROOT = {{ request.script_root | tojson | safe }}; 
+    $('#formLogin').submit(function (e) {
+        e.preventDefault(); 
+        var form = $('#formLogin')[0]; 
+        var data = new FormData(form); 
+        $.ajax({
+            type: "POST", enctype: 'multipart/form-data', 
+            url: "{{url_for('login.validaLogin')}}", 
+            data: data,
+            processData: false,
+            contentType: false, 
+            cache: false, 
+            timeout: 600000, 
+            // manipular o retorno da requisição
+            success: function (data) {
+                if (data.erro) {
+                    Swal.fire({
+                    text: data.msgErro,
+                    icon: "error"
+                    });
+                }else {
+                    window.location.replace($SCRIPT_ROOT + "{{ url_for('index.formIndex') }}");
+                }
+            },
+            // manipular erros da requisição
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    })
+</script>
 {%endblock%}

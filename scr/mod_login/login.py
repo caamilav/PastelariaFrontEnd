@@ -22,7 +22,7 @@ def validaLogin():
             raise Exception("Falha no login! Verifique seus dados e tente novamente!")
             
     except Exception as e:
-        return redirect(url_for('login.login', msgErro=e.args[0]))
+        return jsonify(erro=True, msgErro=e.args[0])
 
 @bp_login.route("/logoff", methods=['GET'])
 def logoff():
