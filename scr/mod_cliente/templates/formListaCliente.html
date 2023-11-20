@@ -39,7 +39,7 @@
             <form action="{{ url_for('cliente.formEditCliente') }}" method="POST"
             name="formEdit{{ row['id_cliente'] }}">
             <input type="hidden" name="id" value="{{ row['id_cliente'] }}">
-            <button type="submit" name="formEditEditCliente"> <i class="fas fa-edit"></i> </button>
+            <button type="submit" name="formEditEditCliente" class="btn"> <i class="fas fa-edit"></i> </button>
           </form>
           </td>
           <td>
@@ -62,6 +62,7 @@
 
   {% block js %}
   <script src="{{ url_for('static', filename='bootstrap-5.3.2-dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap-5.3.2-dist/js/bootstrap.bundle.js') }}"></script>
   <script src="{{ url_for('static', filename='fontawesome-free-6.4.2-web/js/all.js') }}"></script>
   <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
   <script src="{{ url_for('static', filename='sweetalert2/sweetalert2.all.min.js') }}"></script>

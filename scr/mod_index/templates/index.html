@@ -23,6 +23,12 @@
     {% block title %}Início{% endblock %}
     {% block content %}
 
+
+    {% set grupo_mapping = {0: 'Atendente', 1: 'Caixa', 2: 'Adm'} %}
+    {% set grupo = grupo_mapping.get(session['grupo']) %}
+
+
+
     <div class="container text-center p-5">
         <h4>Bem-vindo à </h4>
         <h1 class="texto-marrom" id="titulo">Pastelaria Sabor & Arte</h1>

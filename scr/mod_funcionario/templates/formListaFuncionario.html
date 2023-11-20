@@ -11,6 +11,8 @@
     </div>
 
     {% if result %}
+    {% set grupo_mapping = {0: 'Atendente', 1: 'Caixa', 2: 'Adm'} %}
+
     <table class="table">
       <thead>
         <tr>
@@ -33,13 +35,12 @@
           <td>{{row['matricula']}}</td>
           <td>{{row['cpf']}}</td>
           <td>{{row['telefone']}}</td>
-          <td>{{row['grupo']}}</td>
+          <td>{{grupo_mapping.get(row['grupo'])}}</td>
           <td>{{row['senha'][:10]}}</td>
           <td>
-            <form action="{{ url_for('funcionario.formEditFuncionario') }}" method="POST"
-              name="formEdit{{ row['id_funcionario'] }}">
+            <form action="{{ url_for('funcionario.formEditFuncionario') }}" method="POST" name="formEdit{{ row['id_funcionario'] }}">
               <input type="hidden" name="id" value="{{ row['id_funcionario'] }}">
-              <button type="submit" name="formEditFuncionario"> <i class="fas fa-edit"></i> </button>
+              <button type="submit" name="formEditFuncionario" class="btn"> <i class="fas fa-edit"></i> </button>
             </form>
           </td>
           <td>
@@ -62,6 +63,7 @@
 
   {% block js %}
   <script src="{{ url_for('static', filename='bootstrap-5.3.2-dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap-5.3.2-dist/js/bootstrap.bundle.js') }}"></script>
   <script src="{{ url_for('static', filename='fontawesome-free-6.4.2-web/js/all.js') }}"></script>
   <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
   <script src="{{ url_for('static', filename='sweetalert2/sweetalert2.all.min.js') }}"></script>

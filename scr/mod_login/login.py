@@ -26,7 +26,7 @@ def validaLogin():
         if (response.status_code != 200):
             raise Exception("Falha no login! Verifique seus dados e tente novamente!")
         else:
-          session['login'] = cpf
+          guardaDadosSessao(result)
           return redirect(url_for('index.formIndex'))
     except Exception as e:
         return jsonify(erro=True, msgErro=e.args[0])
@@ -49,3 +49,10 @@ def validaSessao(f):
          return f(*args, **kwargs)
     # retorna o resultado do if acima
     return decorated_function
+
+
+def guardaDadosSessao(result):
+    session['login'] = result[0].get('cpf')
+    session['nome'] = result[0].get('nome')
+    session['grupo'] = result[0].get('grupo')
+
