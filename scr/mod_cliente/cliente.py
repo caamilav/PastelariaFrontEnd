@@ -31,7 +31,7 @@ def insert():
     try:
         id_cliente = request.form['id']
         nome = request.form['nome']
-        cpf = request.form['cpf']
+        cpf = Funcoes.removerCaracteresEspeciais(request.form['cpf'])
         telefone = request.form['telefone']
         senha = Funcoes.cifraSenha(request.form['senha'])           
         compraFiado = 1 if 'compraFiado' in request.form else 0           
@@ -76,7 +76,7 @@ def edit():
     try:
         id_cliente = request.form['id']
         nome = request.form['nome']
-        cpf = request.form['cpf']
+        cpf = Funcoes.removerCaracteresEspeciais(request.form['cpf'])
         telefone = request.form['telefone']
         senha = Funcoes.cifraSenha(request.form['senha'])
         compraFiado = 1 if 'compraFiado' in request.form else 0

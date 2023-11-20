@@ -33,10 +33,11 @@ def insert():
         id_funcionario = request.form['id']
         nome = request.form['nome']
         matricula = request.form['matricula']
-        cpf = request.form['cpf']
+        cpf = Funcoes.removerCaracteresEspeciais(request.form['cpf'])
         telefone = request.form['telefone']
         grupo = request.form['grupo']
         senha = Funcoes.cifraSenha(request.form['senha'])
+        
         
         # monta o JSON para envio a API
         payload = {'id_funcionario': id_funcionario, 'nome': nome, 'matricula': matricula, 'cpf': cpf, 'telefone': telefone, 'grupo': grupo, 'senha': senha}
@@ -76,7 +77,7 @@ def edit():
         id_funcionario = request.form['id']
         nome = request.form['nome']
         matricula = request.form['matricula']
-        cpf = request.form['cpf']
+        cpf = Funcoes.removerCaracteresEspeciais(request.form['cpf'])
         telefone = request.form['telefone']
         grupo = request.form['grupo']
         senha = Funcoes.cifraSenha(request.form['senha'])

@@ -1,5 +1,7 @@
 from functools import wraps
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for, session
+import requests
+from settings import ENDPOINT_LOGIN, HEADERS_API
 from shared.funcoes import Funcoes
 
 bp_login = Blueprint('login', __name__, url_prefix='/', template_folder='templates')
@@ -15,12 +17,17 @@ def validaLogin():
         cpf = request.form['usuario']
         senha = Funcoes.cifraSenha(request.form['senha'])
         
-        if(cpf == 'abc' and senha == Funcoes.cifraSenha('Bolinhas')):
-            session['login'] = cpf
-            return redirect(url_for('index.formIndex'))
-        else:
+        payload = {'cpf': cpf, 'senha': senha}
+        
+        response = requests.post(ENDPOINT_LOGIN, headers=HEADERS_API, json=payload)
+        result = response.json()
+        print(result)
+        
+        if (response.status_code != 200):
             raise Exception("Falha no login! Verifique seus dados e tente novamente!")
-            
+        else:
+          session['login'] = cpf
+          return redirect(url_for('index.formIndex'))
     except Exception as e:
         return jsonify(erro=True, msgErro=e.args[0])
 
