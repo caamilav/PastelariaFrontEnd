@@ -61,6 +61,11 @@
 <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='sweetalert2/sweetalert2.all.min.js') }}"></script>
 
+ {% if request.args.get('msgErro'): %}
+ <script>
+ Swal.fire("Erro", "{{ request.args.get('msgErro') }}", "error");
+ </script>
+ {%endif%}
 
 <script>
     $SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
@@ -93,5 +98,9 @@
             }
         })
     })
+
+
+
 </script>
+
 {%endblock%}
