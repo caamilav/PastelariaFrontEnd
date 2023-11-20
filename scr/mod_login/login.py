@@ -23,11 +23,11 @@ def validaLogin():
         result = response.json()
         print(result)
         
-        if (response.status_code != 200):
+        if (response.status_code != 200 or result[1] != 200):
             raise Exception("Falha no login! Verifique seus dados e tente novamente!")
-        else:
-          guardaDadosSessao(result)
-          return redirect(url_for('index.formIndex'))
+       
+        guardaDadosSessao(result)
+        return redirect(url_for('index.formIndex'))
     except Exception as e:
         return jsonify(erro=True, msgErro=e.args[0])
 

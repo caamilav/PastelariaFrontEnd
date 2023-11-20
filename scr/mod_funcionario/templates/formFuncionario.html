@@ -43,7 +43,7 @@
 
                 <div class="mb-3">
                     <label for="telefone" class="form-label">Telefone </label>
-                    <input type="text" oninput="mascaraTelefone(this)" class="form-control" id="telefone" name="telefone" value="{{telefone}}"
+                    <input type="text" class="form-control" id="telefone" name="telefone" value="{{telefone}}"
                         placeholder="Digite o telefone" maxlength="15" required>
                 </div>
 
@@ -173,15 +173,6 @@
             i.setAttribute("maxlength", "14");
             if (v.length == 3 || v.length == 7) i.value += ".";
             if (v.length == 11) i.value += "-";
-        }
-
-        function mascaraTel(i){
-            var v = i.value;
-
-        const parte1 = textoAtual.slice(0,5);
-        const parte2 = textoAtual.slice(5,9);
-        i.value = `${parte1}-${parte2}` 
-
         }
     </script>
 
